@@ -1,8 +1,61 @@
+body {
+    background-image: url("./assets/textures/Grass.png");
+    background-repeat: repeat;
+}
+
+.game-title {
+    width: fit-content;
+    margin: 30px 0;
+
+    font-family: "Press Start 2P", monospace;
+    font-size: clamp(16px, 5vw, 40px);
+    font-weight: 900;
+    letter-spacing: -3px;
+    background-color: #e9e760;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-stroke: 1px #212b1a;
+    filter: drop-shadow(2px 3px 0 #151f0f);
+}
+
 
 header {
   display: flex;
   gap: 12px;
 }
+
+    header button {
+        padding: 8px 16px;
+        background-color: #b8c7a5;
+        color: #253020;
+
+        font-family: "Courier New", monospace;
+        font-size: 16px;
+        font-weight: bold;
+
+        border: 3px solid;
+        border-color: #e6efda #536448 #536448 #e6efda;
+        border-radius: 0;
+
+        box-shadow: 3px 3px 0 #263321;
+        cursor: pointer;
+    }
+
+    header button:hover {
+        background-color: #cbd8b9;
+    }
+
+    header button:active {
+        border-color: #536448 #e6efda #e6efda #536448;
+        box-shadow: none;
+        transform: translate(3px, 3px);
+    }
+
+    header button:focus-visible {
+        outline: 2px dashed #253020;
+        outline-offset: 4px;
+    }
+
 
 .game-board {
   display: grid;
@@ -16,6 +69,16 @@ header {
   min-width: 0;
   aspect-ratio: 3 / 5;
   padding: 0;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.card img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 main {
@@ -26,5 +89,20 @@ main {
 
 .counters {
   display: flex;
+  flex-wrap: wrap;
   gap: 12px;
 }
+
+    .counters p {
+        width: fit-content;
+        padding: 8px 16px;
+
+        font-family: "Courier New", monospace;
+        font-size: 16px;
+        font-weight: bold;
+        color: #253020;
+
+        background-color: #d4dec5;
+        border: 3px solid;
+        border-color: #536448 #e6efda #e6efda #536448;
+    }
