@@ -60,15 +60,34 @@ const main = document.createElement('main');
     const gameBoard = document.createElement('div');
     gameBoard.className = 'game-board';
 
-    const gameDeck = [...deck, ...deck];
-        for (let i = gameDeck.length - 1; i > 0; i -= 1) {
-            const randomIndex = Math.floor(Math.random() * (i + 1));
-
-            [gameDeck[i], gameDeck[randomIndex]] =
-            [gameDeck[randomIndex], gameDeck[i]];
-            }
+   
 
         const cards = [];
+
+        let moves = 0;
+        let foundPairs = 0;
+
+        function startNewGame() {
+            moves = 0;
+            foundPairs = 0;
+
+            movesCounter.textContent = `Ходы: ${moves}`;
+            pairsCounter.textContent = `Найдено пар: ${foundPairs}`;
+
+            gameBoard.replaceChildren();
+            cards.length = 0;
+
+            const gameDeck = [...deck, ...deck];
+                for (let i = gameDeck.length - 1; i > 0; i -= 1) {
+                    const randomIndex = Math.floor(Math.random() * (i + 1));
+
+                    [gameDeck[i], gameDeck[randomIndex]] =
+                    [gameDeck[randomIndex], gameDeck[i]];
+                    }
+
+
+
+
             for (let i = 0; i < gameDeck.length; i += 1) {
                 const cardData = gameDeck[i];
 
@@ -98,7 +117,9 @@ const main = document.createElement('main');
                 cards.push(card);
                 gameBoard.append(card);
             }
-
+        }
+newGameButton.addEventListener('click', startNewGame);
+startNewGame();
 
 main.append(counters, gameBoard);
 
