@@ -28,9 +28,22 @@ const counters = document.createElement('div');
 counters.className = 'counters';
 counters.append(movesCounter, pairsCounter);
 
-
 const gameBoard = document.createElement('div');
 gameBoard.className = 'game-board';
+
+
+const cards = [];
+for (let i = 0; i < 16; i += 1) {
+  const card = document.createElement('button');
+  card.type = 'button';
+  card.className = 'card';
+  card.dataset.state = 'closed';
+  card.textContent = 'X';
+
+  cards.push(card);''
+  gameBoard.append(card);
+}
+
 
 main.append(counters, gameBoard);
 

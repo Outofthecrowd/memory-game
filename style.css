@@ -4,6 +4,19 @@ header {
   gap: 12px;
 }
 
+.game-board {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  max-width: 400px;
+  gap: 12px;
+}
+
+.card {
+  position: relative;
+  min-width: 0;
+  aspect-ratio: 3 / 5;
+  padding: 0;
+}
 
 main {
   display: flex;
