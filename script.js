@@ -18,6 +18,20 @@ const title = document.createElement('h1');
 
 document.body.append(title);
 
+const backgroundMusic = document.createElement('audio');
+
+    backgroundMusic.src = './assets/audio/background.mp3';
+    backgroundMusic.loop = true;
+    backgroundMusic.volume = 0.2;
+
+document.body.append(backgroundMusic);
+
+document.addEventListener('click', () => {
+  backgroundMusic.play().catch((error) => {
+    console.error('Не удалось включить музыку:', error);
+        });
+    }, { once: true });
+
 const header = document.createElement('header');
 
     const newGameButton = document.createElement('button');
