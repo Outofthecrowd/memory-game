@@ -46,21 +46,43 @@ const main = document.createElement('main');
     const gameBoard = document.createElement('div');
     gameBoard.className = 'game-board';
 
+    const gameDeck = [...deck, ...deck];
+        for (let i = gameDeck.length - 1; i > 0; i -= 1) {
+            const randomIndex = Math.floor(Math.random() * (i + 1));
+
+            [gameDeck[i], gameDeck[randomIndex]] =
+            [gameDeck[randomIndex], gameDeck[i]];
+            }
 
         const cards = [];
-            for (let i = 0; i < 16; i += 1) {
-            const card = document.createElement('button');
-            card.type = 'button';
-            card.className = 'card';
-            card.dataset.state = 'closed';
-            card.setAttribute('aria-label', `Карточка ${i + 1}`);
-            const image = document.createElement('img');
-            image.src = cardBack;
-            image.alt = '';
+            for (let i = 0; i < gameDeck.length; i += 1) {
+                const cardData = gameDeck[i];
 
-            card.append(image);
-            cards.push(card);''
-            gameBoard.append(card);
+                const card = document.createElement('button');
+                card.type = 'button';
+                card.className = 'card';
+
+                card.dataset.state = 'closed';
+                card.dataset.pairId = cardData.id;
+                card.setAttribute('aria-label', `Карточка ${i + 1}`);
+
+                const image = document.createElement('img');
+                image.src = cardBack;
+                image.alt = '';
+
+                card.append(image);
+                card.addEventListener('click', () => {
+                    if (card.dataset.state !== 'closed') {
+                        return;
+                        }
+
+                    card.dataset.state = 'open';
+                    image.src = cardData.image;
+                    image.alt = cardData.name;
+                    card.setAttribute('aria-label', cardData.name);
+                    });
+                cards.push(card);
+                gameBoard.append(card);
             }
 
 
