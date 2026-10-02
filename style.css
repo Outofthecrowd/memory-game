@@ -81,6 +81,14 @@ header {
   object-fit: cover;
 }
 
+.card[data-state="closed"] .card-front {
+    display: none;
+}
+.card[data-state="open"] .card-back,
+.card[data-state="matched"] .card-back {
+    display: none;
+}
+
 main {
   display: flex;
   flex-direction: column;

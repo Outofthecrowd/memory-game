@@ -60,22 +60,29 @@ const main = document.createElement('main');
     const gameBoard = document.createElement('div');
     gameBoard.className = 'game-board';
 
-   
-
-        const cards = [];
-
+        
+        const delay = 800;
         let moves = 0;
         let foundPairs = 0;
+        let count = 0;
+        let firstCard = null;
+        let secondCard = null;
+        let closeCardsTimer = null;
 
         function startNewGame() {
+            clearTimeout(closeCardsTimer);
+            closeCardsTimer = null;
             moves = 0;
             foundPairs = 0;
+            count = 0;
+            firstCard = null;
+            secondCard = null;
+            
 
             movesCounter.textContent = `Ходы: ${moves}`;
             pairsCounter.textContent = `Найдено пар: ${foundPairs}`;
 
             gameBoard.replaceChildren();
-            cards.length = 0;
 
             const gameDeck = [...deck, ...deck];
                 for (let i = gameDeck.length - 1; i > 0; i -= 1) {
@@ -84,8 +91,6 @@ const main = document.createElement('main');
                     [gameDeck[i], gameDeck[randomIndex]] =
                     [gameDeck[randomIndex], gameDeck[i]];
                     }
-
-
 
 
             for (let i = 0; i < gameDeck.length; i += 1) {
@@ -99,25 +104,76 @@ const main = document.createElement('main');
                 card.dataset.pairId = cardData.id;
                 card.setAttribute('aria-label', `Карточка ${i + 1}`);
 
-                const image = document.createElement('img');
-                image.src = cardBack;
-                image.alt = '';
+                const backImage = document.createElement('img');
+                backImage.className = 'card-back';
+                backImage.src = cardBack;
+                backImage.alt = '';
 
-                card.append(image);
+                const frontImage = document.createElement('img');
+                frontImage.className = 'card-front';
+                frontImage.src = cardData.image;
+                frontImage.alt = cardData.name;
+
+                card.append(backImage, frontImage);
                 card.addEventListener('click', () => {
-                    if (card.dataset.state !== 'closed') {
-                        return;
-                        }
-
-                    card.dataset.state = 'open';
-                    image.src = cardData.image;
-                    image.alt = cardData.name;
-                    card.setAttribute('aria-label', cardData.name);
-                    });
-                cards.push(card);
+                    handleCardClick(card, cardData);
+                });
+            
+       
                 gameBoard.append(card);
             }
         }
+
+        function handleCardClick(card, cardData) {
+            if (card.dataset.state !== 'closed' || count >= 2) {
+                return;
+                }
+
+            card.dataset.state = 'open';
+            card.setAttribute('aria-label', cardData.name);
+
+            count += 1;
+
+            if (count === 1) {
+                firstCard = card;
+                } else {
+                secondCard = card;
+                checkPair(firstCard, secondCard);
+                }
+            }    
+
+        function checkPair(a, b){
+            moves += 1;
+            movesCounter.textContent = `Ходы: ${moves}`;
+
+            if (a.dataset.pairId === b.dataset.pairId) {
+                a.dataset.state = 'matched';
+                b.dataset.state = 'matched';
+
+                foundPairs += 1;
+                pairsCounter.textContent = `Найдено пар: ${foundPairs}`;
+
+                count = 0;
+                firstCard = null;
+                secondCard = null;
+            } else {
+                closeCardsTimer = setTimeout(function() {
+                    a.dataset.state = 'closed';
+                    b.dataset.state = 'closed';
+
+                    a.setAttribute('aria-label', 'Закрытая карточка');
+                    b.setAttribute('aria-label', 'Закрытая карточка');
+
+                    count = 0;
+                    firstCard = null;
+                    secondCard = null;
+                    closeCardsTimer = null;
+                    }, delay);
+
+            }
+        }
+
+
 newGameButton.addEventListener('click', startNewGame);
 startNewGame();
 
