@@ -1,0 +1,17 @@
+
+header {
+  display: flex;
+  gap: 12px;
+}
+
+
+main {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.counters {
+  display: flex;
+  gap: 12px;
+}
