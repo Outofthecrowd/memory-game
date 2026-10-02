@@ -170,13 +170,55 @@ const main = document.createElement('main');
                     closeCardsTimer = null;
                     }, delay);
 
+                    
             }
+            if (foundPairs === deck.length){
+                        finish(moves);
+                    }
+        }
+
+       function finish (moves){
+            victoryResult.textContent = `Все пары кокш найдены за ${moves} ходов!`;
+            victoryModal.showModal();
         }
 
 
-newGameButton.addEventListener('click', startNewGame);
-startNewGame();
+const victoryModal = document.createElement('dialog');
+victoryModal.className = 'victory-modal';
+
+const victoryImage = document.createElement('img');
+victoryImage.className = 'victory-image';
+victoryImage.src = './assets/victory/victory.png';
+victoryImage.alt = 'Победа!';
+
+const victoryResult = document.createElement('p');
+
+
+const modalNewGameButton = document.createElement('button');
+modalNewGameButton.type = 'button';
+modalNewGameButton.textContent = 'Новая игра';
+
+modalNewGameButton.addEventListener('click', () => {
+    victoryModal.close();
+    startNewGame();
+});
+
+const modalCloseButton = document.createElement('button');
+modalCloseButton.type = 'button';
+modalCloseButton.textContent = 'Закрыть';
+
+modalCloseButton.addEventListener('click', () => {
+    victoryModal.close();
+});
+
+const victoryButtons = document.createElement('div');
+victoryButtons.className = 'victory-buttons';
+victoryButtons.append(modalNewGameButton, modalCloseButton);
+victoryModal.append(victoryImage, victoryResult, victoryButtons);
+document.body.append(victoryModal);
+
 
 main.append(counters, gameBoard);
-
 document.body.append(header, main);
+newGameButton.addEventListener('click', startNewGame);
+startNewGame();
