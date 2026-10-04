@@ -9,6 +9,7 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 12px;
+  
 }
 
 .game-title {
@@ -27,15 +28,14 @@ body {
     filter: drop-shadow(2px 3px 0 #1f1a0f);
 }
 
+.header-buttons{  
+        display: flex;  
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
 
-header {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 12px;
-}
-
-    header button {
+    .header-buttons button{
         padding: 8px 16px;
         background-color: #b8c7a5;
         color: #253020;
@@ -52,17 +52,17 @@ header {
         cursor: pointer;
     }
 
-    header button:hover {
+    .header-buttons button:hover {
         background-color: #cbd8b9;
     }
 
-    header button:active {
+    .header-buttons button:active {
         border-color: #536448 #e6efda #e6efda #536448;
         box-shadow: none;
         transform: translate(3px, 3px);
     }
 
-    header button:focus-visible {
+    .header-buttons button:focus-visible {
         outline: 2px dashed #253020;
         outline-offset: 4px;
     }
@@ -92,6 +92,10 @@ main {
   padding: 0;
   overflow: hidden;
   cursor: pointer;
+  border: 3px solid;
+  border-color: #d7b875 #684528 #684528 #d7b875;
+  box-shadow: 2px 2px 0 #291b10;
+  border-radius: 0;
 }
 
 .card img {
@@ -109,14 +113,6 @@ main {
 .card[data-state="matched"] .card-back {
     display: none;
 }
-
-.card {
-    border: 3px solid;
-    border-color: #d7b875 #684528 #684528 #d7b875;
-    box-shadow: 2px 2px 0 #291b10;
-    border-radius: 0;
-}
-
 
 .counters {
     display: flex;
