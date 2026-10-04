@@ -1,0 +1,221 @@
+body {
+    background-image: url("./assets/textures/Grass.png");
+    background-repeat: repeat;
+
+    box-sizing: border-box;
+    margin: 0;
+    padding: 24px 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  
+}
+
+.game-title {
+    width: fit-content;
+    margin: 12px 0;
+    text-align: center;
+
+    font-family: "Press Start 2P", monospace;
+    font-size: clamp(16px, 5vw, 40px);
+    font-weight: 900;
+    letter-spacing: -3px;
+    background-color: #ebc548;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-stroke: 1px #130a04;
+    filter: drop-shadow(2px 3px 0 #1f1a0f);
+}
+
+.header-buttons{  
+        display: flex;  
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .header-buttons button{
+        padding: 8px 16px;
+        background-color: #b8c7a5;
+        color: #253020;
+
+        font-family: "Courier New", monospace;
+        font-size: 16px;
+        font-weight: bold;
+
+        border: 3px solid;
+        border-color: #e6efda #536448 #536448 #e6efda;
+        border-radius: 0;
+
+        box-shadow: 3px 3px 0 #263321;
+        cursor: pointer;
+    }
+
+    .header-buttons button:hover {
+        background-color: #cbd8b9;
+    }
+
+    .header-buttons button:active {
+        border-color: #536448 #e6efda #e6efda #536448;
+        box-shadow: none;
+        transform: translate(3px, 3px);
+    }
+
+    .header-buttons button:focus-visible {
+        outline: 2px dashed #253020;
+        outline-offset: 4px;
+    }
+
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 1100px;
+    gap: 12px;
+}
+
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    width: 100%;
+    max-width: 500px;
+    gap: 12px;
+}
+
+.card {
+  position: relative;
+  min-width: 0;
+  aspect-ratio: 3 / 5;
+  padding: 0;
+  overflow: hidden;
+  cursor: pointer;
+  border: 3px solid;
+  border-color: #d7b875 #684528 #684528 #d7b875;
+  box-shadow: 2px 2px 0 #291b10;
+  border-radius: 0;
+}
+
+.card img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card[data-state="closed"] .card-front {
+    display: none;
+}
+.card[data-state="open"] .card-back,
+.card[data-state="matched"] .card-back {
+    display: none;
+}
+
+.counters {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+    .counters p {
+        width: fit-content;
+        padding: 8px 16px;
+        margin: 0;
+
+        font-family: "Courier New", monospace;
+        font-size: 16px;
+        font-weight: bold;
+        color: #253020;
+
+        background-color: #d4dec5;
+        border: 3px solid;
+        border-color: #536448 #e6efda #e6efda #536448;
+    }
+
+.victory-modal {
+    background-image: url("./assets/textures/wood.png");
+    background-repeat: repeat;
+
+    box-sizing: border-box;
+    width: 500px;
+    min-width: 0;
+    max-width: calc(100vw - 48px);
+    padding: 12px;
+    text-align: center;
+}
+
+.victory-modal[open] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.victory-modal p {
+    margin: 0;
+    padding: 8px 12px;
+
+    font-family: "Courier New", monospace;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 1.5;
+    text-align: center;
+
+    color: #fff4ce;
+    background-color: rgba(25, 18, 12, 0.85);
+}
+
+.victory-image {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.victory-buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+    .victory-modal button {
+        padding: 8px 16px;
+        background-color: #b8c7a5;
+        color: #253020;
+
+        font-family: "Courier New", monospace;
+        font-size: 16px;
+        font-weight: bold;
+
+        border: 3px solid;
+        border-color: #e6efda #536448 #536448 #e6efda;
+        border-radius: 0;
+
+        box-shadow: 3px 3px 0 #263321;
+        cursor: pointer;
+    }
+
+    .victory-modal button:hover {
+        background-color: #cbd8b9;
+    }
+
+    .victory-modal button:active {
+        border-color: #536448 #e6efda #e6efda #536448;
+        box-shadow: none;
+        transform: translate(3px, 3px);
+    }
+
+    .victory-modal button:focus-visible {
+        outline: 2px dashed #253020;
+        outline-offset: 4px;
+    }
+
+@media (min-width: 1000px) {
+    .game-board {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    max-width: 1100px;
+    }
+}
