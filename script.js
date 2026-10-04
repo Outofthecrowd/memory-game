@@ -1,26 +1,20 @@
-const deck = [
-  { id: 1, name: 'Кокша 1', image: './assets/cards/1.png' },
-  { id: 2, name: 'Кокша 2', image: './assets/cards/2.png' },
-  { id: 3, name: 'Кокша 3', image: './assets/cards/3.png' },
-  { id: 4, name: 'Кокша 4', image: './assets/cards/4.png' },
-  { id: 5, name: 'Кокша 5', image: './assets/cards/5.png' },
-  { id: 6, name: 'Кокша 6', image: './assets/cards/6.png' },
-  { id: 7, name: 'Кокша 7', image: './assets/cards/7.png' },
-  { id: 8, name: 'Кокша 8', image: './assets/cards/8.png' }
+const DECK = [
+  { id: 1, name: 'Маня Понич', image: './assets/cards/1.png' },
+  { id: 2, name: 'Гычеедка', image: './assets/cards/2.png' },
+  { id: 3, name: 'Шпендель', image: './assets/cards/3.png' },
+  { id: 4, name: 'Лесной Кадаврик', image: './assets/cards/4.png' },
+  { id: 5, name: 'Ефросинья Валерьевна', image: './assets/cards/5.png' },
+  { id: 6, name: 'Грык', image: './assets/cards/6.png' },
+  { id: 7, name: 'Чунявый Бенедикт', image: './assets/cards/7.png' },
+  { id: 8, name: 'Валентин Четвертый', image: './assets/cards/8.png' }
 ];
+const CARD_BACK = './assets/textures/back.png';
+const MUSIC = './assets/audio/background.mp3';
 
-const cardBack = './assets/textures/back.png';
-
-const title = document.createElement('h1');
-
-    title.className = 'game-title';
-    title.textContent = 'Найди пару';
-
-document.body.append(title);
 
 const backgroundMusic = document.createElement('audio');
 
-    backgroundMusic.src = './assets/audio/background.mp3';
+    backgroundMusic.src = MUSIC;
     backgroundMusic.loop = true;
     backgroundMusic.volume = 0.2;
 
@@ -34,6 +28,10 @@ document.addEventListener('click', () => {
 
 const header = document.createElement('header');
 
+    const title = document.createElement('h1');
+    title.className = 'game-title';
+    title.textContent = 'Найди пару';
+
     const newGameButton = document.createElement('button');
     newGameButton.type = 'button';
     newGameButton.textContent = 'Новая игра';
@@ -42,7 +40,11 @@ const header = document.createElement('header');
     recordsButton.type = 'button';
     recordsButton.textContent = 'Рекорды';
 
-header.append(newGameButton, recordsButton);
+    const headerButtons = document.createElement('div');
+    headerButtons.className = 'header-buttons';
+    headerButtons.append(newGameButton, recordsButton);
+
+header.append(title, headerButtons);
 
 const main = document.createElement('main');
 
@@ -60,6 +62,8 @@ const main = document.createElement('main');
     const gameBoard = document.createElement('div');
     gameBoard.className = 'game-board';
 
+
+    
         
         const delay = 800;
         let moves = 0;
@@ -78,20 +82,23 @@ const main = document.createElement('main');
             firstCard = null;
             secondCard = null;
             
-
             movesCounter.textContent = `Ходы: ${moves}`;
             pairsCounter.textContent = `Найдено пар: ${foundPairs}`;
+            generateGameBoard();
+
+        }
+
+        function generateGameBoard() {
 
             gameBoard.replaceChildren();
 
-            const gameDeck = [...deck, ...deck];
+            const gameDeck = [...DECK, ...DECK];
                 for (let i = gameDeck.length - 1; i > 0; i -= 1) {
                     const randomIndex = Math.floor(Math.random() * (i + 1));
 
                     [gameDeck[i], gameDeck[randomIndex]] =
                     [gameDeck[randomIndex], gameDeck[i]];
                     }
-
 
             for (let i = 0; i < gameDeck.length; i += 1) {
                 const cardData = gameDeck[i];
@@ -106,7 +113,7 @@ const main = document.createElement('main');
 
                 const backImage = document.createElement('img');
                 backImage.className = 'card-back';
-                backImage.src = cardBack;
+                backImage.src = CARD_BACK;
                 backImage.alt = '';
 
                 const frontImage = document.createElement('img');
@@ -172,7 +179,7 @@ const main = document.createElement('main');
 
                     
             }
-            if (foundPairs === deck.length){
+            if (foundPairs === DECK.length){
                         finish(moves);
                     }
         }
